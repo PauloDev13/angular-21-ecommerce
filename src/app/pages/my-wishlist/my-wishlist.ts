@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-my-wushlist',
+  selector: 'app-my-wishlist',
   imports: [],
   template: `
     <p>
-      my-wushlist works!
+      my-wishlist works!
     </p>
   `,
   styles: ``,
 })
-export class MyWushlist {
+export default class MyWishlist {
 
 }

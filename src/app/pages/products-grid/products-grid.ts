@@ -10,6 +10,6 @@ import { Component } from '@angular/core';
   `,
   styles: ``,
 })
-export class ProductsGrid {
+export default class ProductsGrid {
 
 }
