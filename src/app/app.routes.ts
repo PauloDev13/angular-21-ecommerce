@@ -4,7 +4,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'products/all',
+    redirectTo: 'products/todas',
   },
   {
     path: 'products/:category', loadComponent: () => import('./pages/products-grid/products-grid'),

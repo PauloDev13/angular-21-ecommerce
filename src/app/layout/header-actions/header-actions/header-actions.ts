@@ -28,6 +28,7 @@ import {RouterLink} from '@angular/router';
     </div>
   `,
   styles: ``,
+  standalone: true
 })
 export class HeaderActions {
 

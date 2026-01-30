@@ -9,11 +9,12 @@ import {HeaderActions} from '../header-actions/header-actions/header-actions';
     <mat-toolbar class="w-full elevated py-2">
       <div class="max-w-[1200px] mx-auto w-full flex items-center justify-between">
         <span>Barra de Ferramentas</span>
-        <app-header-actions/>
+        <app-header-actions />
       </div>
     </mat-toolbar>
   `,
   styles: ``,
+  standalone: true
 })
 export class Header {
 

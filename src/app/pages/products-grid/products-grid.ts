@@ -1,19 +1,20 @@
 import {Component, computed, input, signal} from '@angular/core';
 import {Product} from '../../models/product';
+import {ProductCard} from '../../components/product-card/product-card';
 
 @Component({
   selector: 'app-products-grid',
-  imports: [],
+  imports: [
+    ProductCard
+  ],
   template: `
-    <div class="bg-gray-100 p-6">
-      <h1 class="text-2xl font-bold text-gray-900">
-        {{ category() }}
+    <div class="bg-gray-100 p-6 h-full">
+      <h1 class="text-2xl font-bold text-gray-900 mb-6">
+        Categoria: {{ category() }}
       </h1>
       <div class="responsive-grid">
         @for (product of filteredProducts(); track product.id) {
-          <div class="bg-white cursor-pointer rounded-xl shadow-lg overflow-hidden flex flex-col h-full">
-            <img [src]="product.imageUrl" class="w-full h-[300px] object-cover rounded-t-xl" alt="Imagem"/>
-          </div>
+          <app-product-card [product]="product" />
         }
       </div>
     </div>
@@ -22,7 +23,7 @@ import {Product} from '../../models/product';
   standalone: true
 })
 export default class ProductsGrid {
-  category = input<string>('all');
+  category = input<string>('todas');
 
   products = signal<Product[]>(
     [
@@ -34,7 +35,7 @@ export default class ProductsGrid {
         imageUrl: 'https://images.pexels.com/photos/6078129/pexels-photo-6078129.jpeg',
         rating: 4.5,
         reviewCount: 230,
-        inStock: 45,
+        inStock: 0,
         category: 'Eletrônicos'
       },
       {
@@ -128,7 +129,11 @@ export default class ProductsGrid {
     ]
   );
 
-  filteredProducts = computed(() => this.products()
-    .filter(p => p.category.toLowerCase() === this.category().toLowerCase()));
-
+  filteredProducts = computed(() => {
+    if (this.category() === 'todas') {
+      return this.products();
+    }
+      return this.products()
+        .filter(p => p.category.toLowerCase() === this.category().toLowerCase())
+  });
 }
