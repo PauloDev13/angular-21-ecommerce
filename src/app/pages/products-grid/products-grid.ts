@@ -6,19 +6,20 @@ import {Product} from '../../models/product';
   imports: [],
   template: `
     <div class="bg-gray-100 p-6">
-      <h1 class="text-2x1 font-bold text-gray-900">
+      <h1 class="text-2xl font-bold text-gray-900">
         {{ category() }}
       </h1>
-    </div>
-    <div class="responsive-grid">
-      @for (product of filteredProducts(); track product.id) {
-        <div class="bg-white cursor-pointer rounded-x1 shadow-lg overflow-hidden flex flex-col h-full">
-          <img [src]="product.imageUrl" class="w-full h-[300px] object-cover rounded-t-xl"  alt="Imagem"/>
-        </div>
-      }
+      <div class="responsive-grid">
+        @for (product of filteredProducts(); track product.id) {
+          <div class="bg-white cursor-pointer rounded-xl shadow-lg overflow-hidden flex flex-col h-full">
+            <img [src]="product.imageUrl" class="w-full h-[300px] object-cover rounded-t-xl" alt="Imagem"/>
+          </div>
+        }
+      </div>
     </div>
   `,
   styles: ``,
+  standalone: true
 })
 export default class ProductsGrid {
   category = input<string>('all');
@@ -57,17 +58,6 @@ export default class ProductsGrid {
         reviewCount: 310,
         inStock: 30,
         category: 'Eletrônicos'
-      },
-      {
-        id: '4',
-        name: 'Conforter de Microfibra King Size',
-        description: 'Conforter de cama king size em microfibra, com design moderno e toque macio, ideal para quarto principal.',
-        price: 399.90,
-        imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/71a7hX8sDVL._AC_SL1500_.jpg',
-        rating: 4.0,
-        reviewCount: 180,
-        inStock: 75,
-        category: 'Cama e mesa'
       },
       {
         id: '5',
@@ -139,6 +129,6 @@ export default class ProductsGrid {
   );
 
   filteredProducts = computed(() => this.products()
-    .filter(p => p.category === this.category().toLowerCase()));
+    .filter(p => p.category.toLowerCase() === this.category().toLowerCase()));
 
 }
