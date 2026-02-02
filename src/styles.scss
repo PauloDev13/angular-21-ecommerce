@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use '@ngxpert/hot-toast/styles';
 
 html {
   @include mat.theme(
