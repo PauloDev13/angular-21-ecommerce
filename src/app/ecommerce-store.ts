@@ -3,11 +3,13 @@ import {patchState, signalMethod, signalStore, withComputed, withMethods, withSt
 import {computed, inject} from '@angular/core';
 import {produce} from 'immer';
 import {ToasterService} from './services/toaster-service';
+import {CartModel} from './models/cart-model';
 
 export type EcommerceState = {
   products: Product[];
   category: string;
   wishlistItems: Product[];
+  cartItems: CartModel[];
 }
 
 export const EcommerceStore = signalStore(
@@ -117,9 +119,10 @@ export const EcommerceStore = signalStore(
       }
     ],
     category: 'todas',
-    wishlistItems: []
+    wishlistItems: [],
+    cartItems: []
   } as EcommerceState),
-  withComputed(({ category, products, wishlistItems }) => ({
+  withComputed(({ category, products, wishlistItems, cartItems }) => ({
     filteredProducts: computed(() => {
       if (category() === 'todas') return products();
       return products()
@@ -129,8 +132,12 @@ export const EcommerceStore = signalStore(
     wishlistCount: computed(() => {
       return wishlistItems().length
     }),
+    cartCount: computed(() => {
+      return cartItems().reduce((acc, item) => acc + item.quantity, 0);
+    })
 
   })),
+
   withMethods((store, toaster = inject(ToasterService)) => ({
     setCategory: signalMethod<string>((category: string) => {
       patchState(store, { category });
@@ -154,6 +161,23 @@ export const EcommerceStore = signalStore(
     },
     clearWishlist: () => {
       patchState(store, { wishlistItems: [] });
+    },
+    addToCart: (product: Product, quantity = 1) => {
+      const existingItemIndex = store.cartItems().findIndex(index => product.id === product.id);
+
+      const updatedCartItems = produce(store.cartItems(), (draft) => {
+        if (existingItemIndex !== -1) {
+          draft[existingItemIndex].quantity += quantity;
+          return;
+        }
+
+        draft.push({
+          product, quantity
+        })
+      });
+
+      patchState(store, { cartItems: updatedCartItems });
+      toaster.success(existingItemIndex !== -1 ? 'Adicionar produto novamente' : 'Producto adicionado ao carrinho!');
     }
   }))
 )
