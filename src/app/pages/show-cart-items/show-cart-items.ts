@@ -1,9 +1,17 @@
-import {Component, input} from '@angular/core';
+import {Component, computed, inject, input} from '@angular/core';
 import {CartModel} from '../../models/cart-model';
+import {QtySelector} from '../../components/qty-selector/qty-selector';
+import {EcommerceStore} from '../../ecommerce-store';
+import {MatIconButton} from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-show-cart-items',
-  imports: [],
+  imports: [
+    QtySelector,
+    MatIconButton,
+    MatIcon
+  ],
   template: `
     <div class="grid grid-cols-3 grid-cols-[3fr_1fr_1fr]">
       <div class="flex items-center gap-4">
@@ -14,10 +22,34 @@ import {CartModel} from '../../models/cart-model';
           <div class="text-gray-600 text-lg">\R$ {{ item().product.price }}</div>
         </div>
       </div>
+
+      <app-qty-selector
+        [quantity]="item().quantity"
+        (quantityChange)="store.setItemQuantity({ productId: item().product.id, quantity: $event })"
+      />
+
+      <div class="flex flex-col items-end">
+        <div class="text-right text-lg font-semibold">
+          {{ total() }}
+        </div>
+        <div class="flex -me-3">
+          <button matIconButton>
+            <mat-icon>favorite_border</mat-icon>
+          </button>
+          <button matIconButton class="danger">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+
     </div>
   `,
   styles: ``,
 })
 export class ShowCartItems {
   item = input.required<CartModel>();
+  store = inject(EcommerceStore);
+
+  total = computed(() =>
+    (this.item().quantity * this.item().product.price).toFixed(2));
 }
