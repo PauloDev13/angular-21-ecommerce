@@ -163,7 +163,8 @@ export const EcommerceStore = signalStore(
       patchState(store, { wishlistItems: [] });
     },
     addToCart: (product: Product, quantity = 1) => {
-      const existingItemIndex = store.cartItems().findIndex(index => product.id === product.id);
+      const existingItemIndex = store.cartItems().findIndex(item => item.product.id === product.id);
+      console.log(existingItemIndex);
 
       const updatedCartItems = produce(store.cartItems(), (draft) => {
         if (existingItemIndex !== -1) {
