@@ -17,9 +17,10 @@ import {MatIcon} from '@angular/material/icon';
     </button>
   `,
   styles: `
-  :host {
-    display: block;
-  }`,
+    :host {
+      display: block;
+    }`,
+  standalone: true
 })
 export class BackButton {
   label = input('');

@@ -22,9 +22,11 @@ import {EmptyWishlist} from './empty-wishlist/empty-wishlist';
       @if (store.wishlistCount() > 0) {
         <div class="flex justify-between items-center mb-6">
           <h1 class="text-2xl font-bold">Lista de Favoritos</h1>
-          <span class="text-gray-500 text-xl">{{ store.wishlistCount() > 1
-            ? store.wishlistCount() + ' Itens'
-            : store.wishlistCount() + ' Item' }}
+          <span class="text-gray-500 text-xl">{{
+              store.wishlistCount() > 1
+                ? store.wishlistCount() + ' Itens'
+                : store.wishlistCount() + ' Item'
+            }}
           </span>
         </div>
 
@@ -51,6 +53,7 @@ import {EmptyWishlist} from './empty-wishlist/empty-wishlist';
     </div>
   `,
   styles: ``,
+  standalone: true
 })
 export default class MyWishlist {
   store = inject(EcommerceStore);

@@ -27,6 +27,7 @@ import {MatIcon} from '@angular/material/icon';
     </div>
   `,
   styles: ``,
+  standalone: true
 })
 export class QtySelector {
   quantity = input(0);

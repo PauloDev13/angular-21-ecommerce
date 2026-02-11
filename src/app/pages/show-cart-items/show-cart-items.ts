@@ -16,7 +16,7 @@ import {MatIcon} from '@angular/material/icon';
     <div class="grid grid-cols-3 grid-cols-[3fr_1fr_1fr]">
       <div class="flex items-center gap-4">
         <img [src]="item().product.imageUrl" alt="item"
-        class="w-24 h-24 rounded-lg object-cover" />
+             class="w-24 h-24 rounded-lg object-cover"/>
         <div>
           <div class="text-gray-900 text-lg font-semibold">{{ item().product.name }}</div>
           <div class="text-gray-600 text-lg">\R$ {{ item().product.price }}</div>
@@ -30,13 +30,13 @@ import {MatIcon} from '@angular/material/icon';
 
       <div class="flex flex-col items-end">
         <div class="text-right text-lg font-semibold">
-          {{ total() }}
+          \R$ {{ total() }}
         </div>
         <div class="flex -me-3">
-          <button matIconButton>
+          <button matIconButton (click)="store.moveToWishlist(item().product)">
             <mat-icon>favorite_border</mat-icon>
           </button>
-          <button matIconButton class="danger">
+          <button matIconButton class="danger" (click)="store.removeFromCart(item().product)">
             <mat-icon>delete</mat-icon>
           </button>
         </div>
@@ -45,6 +45,7 @@ import {MatIcon} from '@angular/material/icon';
     </div>
   `,
   styles: ``,
+  standalone: true
 })
 export class ShowCartItems {
   item = input.required<CartModel>();
