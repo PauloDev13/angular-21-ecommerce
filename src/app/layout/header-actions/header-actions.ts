@@ -4,6 +4,11 @@ import {MatIcon} from '@angular/material/icon';
 import {RouterLink} from '@angular/router';
 import {EcommerceStore} from '../../ecommerce-store';
 import {MatBadge} from '@angular/material/badge';
+import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
+import {MatDivider} from '@angular/material/list';
+import {MatDialog} from '@angular/material/dialog';
+import {SignInDialog} from '../../components/sign-in-dialog/sign-in-dialog';
+import {SignUpDialog} from '../../components/sign-up-dialog/sign-up-dialog';
 
 @Component({
   selector: 'app-header-actions',
@@ -12,7 +17,11 @@ import {MatBadge} from '@angular/material/badge';
     MatIconButton,
     MatIcon,
     RouterLink,
-    MatBadge
+    MatBadge,
+    MatMenuTrigger,
+    MatMenu,
+    MatDivider,
+    MatMenuItem
   ],
   template: `
     <div class="flex items-center gap-2">
@@ -30,12 +39,33 @@ import {MatBadge} from '@angular/material/badge';
       >
         <mat-icon>shopping_cart</mat-icon>
       </button>
-      <button matButton>
-        Entrar
-      </button>
-      <button matButton="filled">
-        Cadastrar-se
-      </button>
+
+      @if (store.user(); as user) {
+        <button matIconButton [matMenuTriggerFor]="userMenu">
+          <img [src]="user.imageUrl" [alt]="user.name" class="w-8 h-8 rounded-full">
+        </button>
+
+        <mat-menu #userMenu="matMenu" xPosition="before">
+          <div class="flex flex-col px-3 min-w-[200px]">
+            <span class="text-sm font-medium">{{ user.name }}</span>
+            <span class="text-xs text-gray-500">{{ user.email }}</span>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <button class="!min-h-[32px]" mat-menu-item (click)="store.signOut()">
+            <mat-icon>logout</mat-icon>
+            Sair
+          </button>
+        </mat-menu>
+      } @else {
+        <button matButton (click)="openSingInDialog()">
+          Entrar
+        </button>
+        <button matButton="filled" (click)="openSingUpDialog()">
+          Cadastrar-se
+        </button>
+      }
     </div>
   `,
   styles: ``,
@@ -43,4 +73,17 @@ import {MatBadge} from '@angular/material/badge';
 })
 export class HeaderActions {
   store = inject(EcommerceStore);
+  matDialog = inject(MatDialog);
+
+  openSingInDialog() {
+    this.matDialog.open(SignInDialog, {
+      disableClose: true,
+    });
+  }
+
+  openSingUpDialog() {
+    this.matDialog.open(SignUpDialog, {
+      disableClose: true,
+    })
+  }
 }

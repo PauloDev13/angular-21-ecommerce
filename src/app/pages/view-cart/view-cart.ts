@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {BackButton} from '../../components/back-button/back-button';
 import {ListCartItems} from './list-cart-items/list-cart-items';
 import {TeaseWishlist} from './tease-wishlist/tease-wishlist';
 import {SummarizeOrder} from '../../components/summarize-order/summarize-order';
+import {MatButton} from '@angular/material/button';
+import {EcommerceStore} from '../../ecommerce-store';
 
 @Component({
   selector: 'app-view-cart',
@@ -11,6 +13,7 @@ import {SummarizeOrder} from '../../components/summarize-order/summarize-order';
     ListCartItems,
     TeaseWishlist,
     SummarizeOrder,
+    MatButton,
   ],
   template: `
     <div class="mx-auto max-w-[1200px] py-6">
@@ -26,7 +29,15 @@ import {SummarizeOrder} from '../../components/summarize-order/summarize-order';
           <app-list-cart-items/>
         </div>
         <div>
-          <app-summarize-order />
+          <app-summarize-order>
+            <ng-container actionButtons>
+              <button matButton="filled" class="w-full mt-6 py-3"
+                (click)="store.proceedToCheckout()"
+              >
+                Finalizar Compra
+              </button>
+            </ng-container>
+          </app-summarize-order>
         </div>
       </div>
     </div>
@@ -35,5 +46,5 @@ import {SummarizeOrder} from '../../components/summarize-order/summarize-order';
   standalone: true
 })
 export class ViewCart {
-
+  store = inject(EcommerceStore);
 }

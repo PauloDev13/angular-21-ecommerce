@@ -4,12 +4,17 @@ import {computed, inject} from '@angular/core';
 import {produce} from 'immer';
 import {ToasterService} from './services/toaster-service';
 import {CartModel} from './models/cart-model';
+import {MatDialog} from '@angular/material/dialog';
+import {SignInDialog} from './components/sign-in-dialog/sign-in-dialog';
+import {SignInParams, SignUpParams, User} from './models/user';
+import {Router} from '@angular/router';
 
 export type EcommerceState = {
   products: Product[];
   category: string;
   wishlistItems: Product[];
   cartItems: CartModel[];
+  user: User | undefined;
 }
 
 export const EcommerceStore = signalStore(
@@ -120,7 +125,8 @@ export const EcommerceStore = signalStore(
     ],
     category: 'todas',
     wishlistItems: [],
-    cartItems: []
+    cartItems: [],
+    user: undefined,
   } as EcommerceState),
   withComputed(({ category, products, wishlistItems, cartItems }) => ({
     filteredProducts: computed(() => {
@@ -138,10 +144,16 @@ export const EcommerceStore = signalStore(
 
   })),
 
-  withMethods((store, toaster = inject(ToasterService)) => ({
+  withMethods((
+    store,
+      toaster = inject(ToasterService),
+      matDialog = inject(MatDialog),
+      router = inject(Router)) => ({
+
     setCategory: signalMethod<string>((category: string) => {
       patchState(store, { category });
     }),
+
     addToWishlist: (product: Product) => {
       const updatedWishlistItems = produce(store.wishlistItems(), (draft) => {
         if(!draft.find(p => p.id === product.id)) {
@@ -206,11 +218,65 @@ export const EcommerceStore = signalStore(
           draft.push(product);
         }
       });
-      patchState(store, {cartItems: updatedCartItems, wishlistItems: updatedWishlistItems });
+      patchState(store, { cartItems: updatedCartItems, wishlistItems: updatedWishlistItems });
     },
     removeFromCart: (product: Product) => {
       patchState(store, { cartItems: store.cartItems()
           .filter(c => c.product.id !== product.id)});
-    }
+    },
+
+    proceedToCheckout: () => {
+      if (!store.user()) {
+        matDialog.open(SignInDialog, {
+          disableClose: true,
+          data: {
+            checkout: true,
+          }
+        });
+        return;
+      }
+
+      router.navigate(['/checkout']);
+    },
+
+    signIn: ({ email, password, checkout, dialogId }: SignInParams)=> {
+      patchState(store, {
+        user: {
+          id: '1',
+          email: email,
+          name: 'Paulo Roberto',
+          password: password,
+          imageUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
+        }
+      });
+
+      matDialog.getDialogById(dialogId)?.close();
+
+      if (checkout) {
+        router.navigate(['/checkout']);
+      }
+    },
+
+    signOut: () => {
+      patchState(store, { user: undefined });
+    },
+
+    signUp: ({ name, email, password, checkout, dialogId }: SignUpParams)=> {
+      patchState(store, {
+        user: {
+          id: '1',
+          email: email,
+          name: 'Paulo Roberto',
+          password: password,
+          imageUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
+        }
+      });
+
+      matDialog.getDialogById(dialogId)?.close();
+
+      if (checkout) {
+        router.navigate(['/checkout']);
+      }
+    },
   }))
 )
