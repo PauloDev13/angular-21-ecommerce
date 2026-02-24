@@ -242,24 +242,31 @@ export const EcommerceStore = signalStore(
       router.navigate(['/checkout']);
     },
 
-    placeOrder: () => {
+    placeOrder: async () => {
       patchState(store, { loading: true });
 
       const user = store.user();
 
       if (!user) {
-        toaster.error('Por favor, faça login antes de fazer o pedido!')
+        toaster.error('Por favor, faça login antes de fazer o pedido!');
+        patchState(store, { loading: false });
         return;
       }
 
       const order: Order = {
         id: crypto.randomUUID(),
         userId: user.id,
-        total: store.cartItems()
-          .reduce((acc, item) => acc + item.quantity * item.product.price, 0),
+        total: Math.round(store.cartItems()
+          .reduce((acc, item) => acc + item.quantity * item.product.price, 0)),
         items: store.cartItems(),
         paymentStatus: 'success',
-      }
+      };
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      patchState(store, { loading: false, cartItems: [] });
+
+      router.navigate(['/order-success']);
     },
 
     signIn: ({ email, password, checkout, dialogId }: SignInParams)=> {
