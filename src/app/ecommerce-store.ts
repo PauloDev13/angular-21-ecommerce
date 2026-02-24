@@ -18,6 +18,7 @@ export type EcommerceState = {
   cartItems: CartModel[];
   user: User | undefined;
   loading: boolean;
+  selectedProductId: string | undefined;
 }
 
 export const EcommerceStore = signalStore(
@@ -131,11 +132,14 @@ export const EcommerceStore = signalStore(
     cartItems: [],
     user: undefined,
     loading: false,
+    selectedProductId: undefined,
   } as EcommerceState),
+
   withStorageSync({
     key: 'modern-store',
     select: ({ wishlistItems, cartItems, user}) => ({wishlistItems, cartItems, user}), }),
-  withComputed(({ category, products, wishlistItems, cartItems }) => ({
+
+  withComputed(({ category, products, wishlistItems, cartItems, selectedProductId }) => ({
     filteredProducts: computed(() => {
       if (category() === 'todas') return products();
       return products()
@@ -147,7 +151,8 @@ export const EcommerceStore = signalStore(
     }),
     cartCount: computed(() => {
       return cartItems().reduce((acc, item) => acc + item.quantity, 0);
-    })
+    }),
+    selectedProduct: computed(() => products().find((p) => p.id === selectedProductId()))
 
   })),
 
@@ -161,26 +166,31 @@ export const EcommerceStore = signalStore(
       patchState(store, { category });
     }),
 
+    setProductId: signalMethod<string>((productId: string) => {
+      patchState(store, { selectedProductId: productId });
+    }),
+
     addToWishlist: (product: Product) => {
       const updatedWishlistItems = produce(store.wishlistItems(), (draft) => {
         if(!draft.find(p => p.id === product.id)) {
           draft.push(product);
         }
       });
-
       patchState(store, { wishlistItems: updatedWishlistItems });
       toaster.success('Producto adicionado com sucesso!');
     },
+
     removeFromWishlist: (product: Product)=> {
       patchState(store, {
         wishlistItems: store.wishlistItems().filter((prod) => prod.id !== product.id),
       });
-
       toaster.success('Producto removido com sucesso!');
     },
+
     clearWishlist: () => {
       patchState(store, { wishlistItems: [] });
     },
+
     addToCart: (product: Product, quantity = 1) => {
       const existingItemIndex = store.cartItems().findIndex(item => item.product.id === product.id);
       console.log(existingItemIndex);
@@ -190,15 +200,14 @@ export const EcommerceStore = signalStore(
           draft[existingItemIndex].quantity += quantity;
           return;
         }
-
         draft.push({
           product, quantity
         })
       });
-
       patchState(store, { cartItems: updatedCartItems });
       toaster.success(existingItemIndex !== -1 ? 'Adicionar produto novamente' : 'Producto adicionado ao carrinho!');
     },
+
     setItemQuantity: (params: { productId: string, quantity: number }) => {
       const index = store.cartItems().findIndex(c => c.product.id === params.productId);
       const updated = produce(store.cartItems(), (draft) => {
@@ -206,6 +215,7 @@ export const EcommerceStore = signalStore(
       });
       patchState(store, { cartItems: updated });
     },
+
     addAllWishlistToCart: () => {
       const updatedCartItems = produce(store.cartItems(), (draft) => {
         store.wishlistItems().forEach(p => {
@@ -216,6 +226,7 @@ export const EcommerceStore = signalStore(
       });
       patchState(store, { cartItems: updatedCartItems, wishlistItems: []});
     },
+
     moveToWishlist: (product: Product) => {
       const updatedCartItems = store.cartItems()
         .filter((p => p.product.id !== product.id));
@@ -227,6 +238,7 @@ export const EcommerceStore = signalStore(
       });
       patchState(store, { cartItems: updatedCartItems, wishlistItems: updatedWishlistItems });
     },
+
     removeFromCart: (product: Product) => {
       patchState(store, { cartItems: store.cartItems()
           .filter(c => c.product.id !== product.id)});
@@ -242,7 +254,6 @@ export const EcommerceStore = signalStore(
         });
         return;
       }
-
       router.navigate(['/checkout']);
     },
 
@@ -267,9 +278,7 @@ export const EcommerceStore = signalStore(
       };
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
-
       patchState(store, { loading: false, cartItems: [] });
-
       router.navigate(['/order-success']);
     },
 

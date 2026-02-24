@@ -3,6 +3,7 @@ import {Product} from '../../models/product';
 import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {EcommerceStore} from '../../ecommerce-store';
+import {RouterLink} from '@angular/router';
 
 
 @Component({
@@ -10,14 +11,19 @@ import {EcommerceStore} from '../../ecommerce-store';
   imports: [
     MatIcon,
     MatButton,
+    RouterLink,
   ],
   template: `
     <div class="relative bg-white cursor-pointer rounded-xl shadow-lg overflow-hidden flex flex-col h-full">
-      <img [src]="product().imageUrl" class="w-full h-[300px] object-cover rounded-t-xl" alt="Imagem"/>
+      <img
+        [src]="product().imageUrl"
+        class="w-full h-[300px] object-cover rounded-t-xl" alt="Imagem"
+        [routerLink]="['/product', product().id]"
+      />
 
       <ng-content/>
 
-      <div class="p-5 flex flex-col flex-1">
+      <div class="p-5 flex flex-col flex-1" [routerLink]="['/product', product().id]">
         <h3 class="text-lg font-semibold text-gray-900 mb-2 leading-tight">
           {{ product().name }}
         </h3>

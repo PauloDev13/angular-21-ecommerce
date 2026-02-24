@@ -10,6 +10,9 @@ export const routes: Routes = [
     path: 'products/:category', loadComponent: () => import('./pages/products-grid/products-grid'),
   },
   {
+    path: 'product/:productId', loadComponent: () => import('./pages/view-product-detail/view-product-detail')
+  },
+  {
     path: 'favorites', loadComponent: () => import('./pages/my-wishlist/my-wishlist'),
   },
   {
