@@ -14,11 +14,16 @@ import {RouterLink} from '@angular/router';
     RouterLink,
   ],
   template: `
-    <div class="relative bg-white cursor-pointer rounded-xl shadow-lg overflow-hidden flex flex-col h-full">
+    <div
+      class="relative bg-white cursor-pointer rounded-xl shadow-lg
+      overflow-hidden flex flex-col h-full transition-all duration-200 ease-out
+      hover:translate-y-1 hover:shadow-xl"
+    >
       <img
         [src]="product().imageUrl"
         class="w-full h-[300px] object-cover rounded-t-xl" alt="Imagem"
         [routerLink]="['/product', product().id]"
+        [style.view-transition-name]="'product-image-' + product().id"
       />
 
       <ng-content/>

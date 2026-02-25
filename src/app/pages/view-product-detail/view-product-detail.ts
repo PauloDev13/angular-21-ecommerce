@@ -18,9 +18,12 @@ import {ProductInfo} from './product-info/product-info';
       />
       @if (store.selectedProduct(); as product) {
         <div class="flex gap-8 mb-8">
-          <img [src]="product.imageUrl"
-               class="w-[500px] h-[550px] object-cover rounded-lg"
-               [alt]="product.name"/>
+          <img
+            [src]="product.imageUrl"
+            class="w-[500px] h-[550px] object-cover rounded-lg"
+            [alt]="product.name"
+            [style.view-transition-name]="'product-image-' + product.id"
+          />
           <div class="flex-1">
             <app-product-info [product]="product" />
           </div>

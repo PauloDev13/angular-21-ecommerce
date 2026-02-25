@@ -13,10 +13,13 @@ import {MatIcon} from '@angular/material/icon';
     MatIcon
   ],
   template: `
-    <div class="grid grid-cols-3 grid-cols-[3fr_1fr_1fr]">
+    <div class="grid grid-cols-3 lg:grid-cols-[3fr_1fr_1fr]">
       <div class="flex items-center gap-4">
-        <img [src]="item().product.imageUrl" alt="item"
-             class="w-24 h-24 rounded-lg object-cover"/>
+        <img
+          [src]="item().product.imageUrl" alt="item"
+          class="w-24 h-24 rounded-lg object-cover"
+          [style.view-transition-name]="'product-image-' + item().product.id"
+        />
         <div>
           <div class="text-gray-900 text-lg font-semibold">{{ item().product.name }}</div>
           <div class="text-gray-600 text-lg">\R$ {{ item().product.price }}</div>
