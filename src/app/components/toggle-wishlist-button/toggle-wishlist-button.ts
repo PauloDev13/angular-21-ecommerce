@@ -11,9 +11,10 @@ import {EcommerceStore} from '../../ecommerce-store';
     MatIconButton
   ],
   template: `
-    <button class="!bg-white shadow-md transition-all duration-200 hover:scale-110 hover:shadow-lg"
-            [class]="isInWishlist() ? '!text-blue-500' : 'text-gray-400'"
-            matIconButton (click)="toggleWishlist(product())">
+    <button
+      [class]="isInWishlist() ? '!text-blue-500' : 'text-gray-400'"
+      matIconButton (click)="toggleWishlist(product())"
+    >
       <mat-icon>{{ isInWishlist() ? 'favorite' : 'favorite_border'}}</mat-icon>
     </button>
   `,

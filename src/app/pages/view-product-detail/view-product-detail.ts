@@ -11,9 +11,11 @@ import {ProductInfo} from './product-info/product-info';
   ],
   template: `
     <div class="mx-auto max-w-[1200px] py-6">
-      <app-back-button class="mb-6" [navigateTo]="backRoute()">
-        Continuar Comprando
-      </app-back-button>
+      <app-back-button
+        class="mb-6"
+        [navigateTo]="backRoute()"
+        label="Continuar Comprando"
+      />
       @if (store.selectedProduct(); as product) {
         <div class="flex gap-8 mb-8">
           <img [src]="product.imageUrl"

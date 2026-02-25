@@ -30,7 +30,6 @@ import {RouterLink} from '@angular/router';
         <p class="text-sm text-gray-600 mb-4 flex-1 leading-tight">
           {{ product().description }}
         </p>
-<!--        TODO: add rating component-->
 
         <div class="text-sm font-medium mb-4">
           {{ product().inStock ? 'No Estoque' : 'Sem Estoque' }}

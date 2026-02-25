@@ -33,9 +33,10 @@ import {EmptyWishlist} from './empty-wishlist/empty-wishlist';
         <div class="responsive-grid">
           @for (product of store.wishlistItems(); track product.id) {
             <app-product-card [product]="product">
-              <button class="!absolute z-10 top-3 right-3 !bg-white shadow-md
-                      transition-all duration-200 hover:scale-110 hover:shadow-lg"
-                      matIconButton (click)="store.removeFromWishlist(product)">
+              <button
+                class="!absolute z-10 top-3 right-3 !bg-white shadow-md
+                transition-all duration-200 hover:scale-110 hover:shadow-lg"
+                matIconButton (click)="store.removeFromWishlist(product)">
                 <mat-icon>delete</mat-icon>
               </button>
             </app-product-card>

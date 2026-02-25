@@ -19,7 +19,7 @@ import {ToggleWishlistButton} from '../../components/toggle-wishlist-button/togg
     MatListItemTitle,
     RouterLink,
     TitleCasePipe,
-    ToggleWishlistButton
+    ToggleWishlistButton,
   ],
   template: `
     <mat-sidenav-container>
@@ -53,7 +53,10 @@ import {ToggleWishlistButton} from '../../components/toggle-wishlist-button/togg
         <div class="responsive-grid">
           @for (product of store.filteredProducts(); track product.id) {
             <app-product-card [product]="product">
-              <app-toggle-wishlist-button class="!absolute z-10 top-3 right-3" [product]="product"/>
+              <app-toggle-wishlist-button
+                class="!absolute z-10 top-3 right-3 rounded !bg-white shadow-md
+                transition-all duration-200 hover:scale-110 hover:shadow-lg" [product]="product"
+              />
             </app-product-card>
           }
         </div>
