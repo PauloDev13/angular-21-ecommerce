@@ -33,8 +33,8 @@ export const EcommerceStore = signalStore(
         description: 'Smartphone moderno com grande display, câmera de alta resolução e desempenho eficiente para tarefas diárias.',
         price: 1599.00,
         imageUrl: 'https://images.pexels.com/photos/6078129/pexels-photo-6078129.jpeg',
-        rating: 4.5,
-        reviewCount: 230,
+        rating: 3,
+        reviewCount: 1,
         inStock: 0,
         category: 'Eletrônicos'
       },

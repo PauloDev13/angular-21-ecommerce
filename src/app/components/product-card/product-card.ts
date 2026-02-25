@@ -4,6 +4,7 @@ import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {EcommerceStore} from '../../ecommerce-store';
 import {RouterLink} from '@angular/router';
+import {StarRating} from '../star-rating/star-rating';
 
 
 @Component({
@@ -12,6 +13,7 @@ import {RouterLink} from '@angular/router';
     MatIcon,
     MatButton,
     RouterLink,
+    StarRating,
   ],
   template: `
     <div
@@ -35,6 +37,10 @@ import {RouterLink} from '@angular/router';
         <p class="text-sm text-gray-600 mb-4 flex-1 leading-tight">
           {{ product().description }}
         </p>
+
+        <app-star-rating class="mb-3 block" [rating]="product().rating">
+          ({{ product().reviewCount }})
+        </app-star-rating>
 
         <div class="text-sm font-medium mb-4">
           {{ product().inStock ? 'No Estoque' : 'Sem Estoque' }}
