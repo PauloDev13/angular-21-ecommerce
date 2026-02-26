@@ -36,7 +36,19 @@ export const EcommerceStore = signalStore(
         rating: 3,
         reviewCount: 1,
         inStock: 0,
-        category: 'Eletrônicos'
+        category: 'Eletrônicos',
+        reviews: [
+          {
+            id: '1',
+            productId: '1',
+            userName: 'prmorais',
+            userImageUrl: 'https://randomuser.me/api/portraits/men/72.jpg',
+            rating: 5,
+            title: 'Muito bom',
+            comment: 'Aparelho muito bom. Chegou em perfeito estado',
+            reviewDate: new Date('2026-02-11'),
+          }
+        ]
       },
       {
         id: '2',
@@ -47,7 +59,20 @@ export const EcommerceStore = signalStore(
         rating: 4.2,
         reviewCount: 540,
         inStock: 120,
-        category: 'Eletrônicos'
+        category: 'Eletrônicos',
+        reviews: [
+          {
+            id: '1',
+            productId: '2',
+            userName: 'prmorais',
+            userImageUrl: 'https://randomuser.me/api/portraits/men/72.jpg',
+            rating: 5,
+            title: 'Muito bom',
+            comment: 'Aparelho muito bom. Chegou em perfeito estado',
+            reviewCount: new Date('2026-02-12'),
+          }
+        ]
+
       },
       {
         id: '3',
@@ -58,7 +83,19 @@ export const EcommerceStore = signalStore(
         rating: 4.8,
         reviewCount: 310,
         inStock: 30,
-        category: 'Eletrônicos'
+        category: 'Eletrônicos',
+        reviews: [
+          {
+            id: '1',
+            productId: '3',
+            userName: 'prmorais',
+            userImageUrl: 'https://randomuser.me/api/portraits/men/72.jpg',
+            rating: 5,
+            title: 'Muito bom',
+            comment: 'Aparelho muito bom. Chegou em perfeito estado',
+            reviewCount: new Date('2026-02-13'),
+          }
+        ]
       },
       {
         id: '5',
@@ -69,7 +106,19 @@ export const EcommerceStore = signalStore(
         rating: 4.3,
         reviewCount: 410,
         inStock: 60,
-        category: 'Cama e mesa'
+        category: 'Cama e mesa',
+        reviews: [
+          {
+            id: '1',
+            productId: '5',
+            userName: 'prmorais',
+            userImageUrl: 'https://randomuser.me/api/portraits/men/72.jpg',
+            rating: 5,
+            title: 'Muito bom',
+            comment: 'Aparelho muito bom. Chegou em perfeito estado',
+            reviewCount: new Date('2026-02-14'),
+          }
+        ]
       },
       {
         id: '6',
@@ -80,7 +129,19 @@ export const EcommerceStore = signalStore(
         rating: 4.1,
         reviewCount: 155,
         inStock: 50,
-        category: 'Cama e mesa'
+        category: 'Cama e mesa',
+        reviews: [
+          {
+            id: '1',
+            productId: '6',
+            userName: 'prmorais',
+            userImageUrl: 'https://randomuser.me/api/portraits/men/72.jpg',
+            rating: 5,
+            title: 'Muito bom',
+            comment: 'Aparelho muito bom. Chegou em perfeito estado',
+            reviewCount: new Date('2026-02-15'),
+          }
+        ]
       },
       {
         id: '7',
@@ -91,7 +152,19 @@ export const EcommerceStore = signalStore(
         rating: 4.6,
         reviewCount: 98,
         inStock: 20,
-        category: 'Eletrodomésticos'
+        category: 'Eletrodomésticos',
+        reviews: [
+          {
+            id: '1',
+            productId: '7',
+            userName: 'prmorais',
+            userImageUrl: 'https://randomuser.me/api/portraits/men/72.jpg',
+            rating: 5,
+            title: 'Muito bom',
+            comment: 'Aparelho muito bom. Chegou em perfeito estado',
+            reviewCount: new Date('2026-02-16'),
+          }
+        ]
       },
       {
         id: '8',
@@ -102,7 +175,19 @@ export const EcommerceStore = signalStore(
         rating: 4.4,
         reviewCount: 152,
         inStock: 37,
-        category: 'Eletrodomésticos'
+        category: 'Eletrodomésticos',
+        reviews: [
+          {
+            id: '1',
+            productId: '8',
+            userName: 'prmorais',
+            userImageUrl: 'https://randomuser.me/api/portraits/men/72.jpg',
+            rating: 5,
+            title: 'Muito bom',
+            comment: 'Aparelho muito bom. Chegou em perfeito estado',
+            reviewCount: new Date('2026-02-17'),
+          }
+        ]
       },
       {
         id:'9',
@@ -113,7 +198,19 @@ export const EcommerceStore = signalStore(
         rating: 4.7,
         reviewCount: 78,
         inStock: 15,
-        category: 'Eletrodomésticos'
+        category: 'Eletrodomésticos',
+        reviews: [
+          {
+            id: '1',
+            productId: '9',
+            userName: 'prmorais',
+            userImageUrl: 'https://randomuser.me/api/portraits/men/72.jpg',
+            rating: 5,
+            title: 'Muito bom',
+            comment: 'Aparelho muito bom. Chegou em perfeito estado',
+            reviewCount: new Date('2026-02-18'),
+          }
+        ]
       },
       {
         id: '10',
@@ -124,7 +221,19 @@ export const EcommerceStore = signalStore(
         rating: 4.0,
         reviewCount: 340,
         inStock: 90,
-        category: 'Eletrodomésticos'
+        category: 'Eletrodomésticos',
+        reviews: [
+          {
+            id: '1',
+            productId: '10',
+            userName: 'prmorais',
+            userImageUrl: 'https://randomuser.me/api/portraits/men/72.jpg',
+            rating: 5,
+            title: 'Muito bom',
+            comment: 'Aparelho muito bom. Chegou em perfeito estado',
+            reviewCount: new Date('2026-02-19'),
+          }
+        ]
       }
     ],
     category: 'todas',
@@ -304,7 +413,7 @@ export const EcommerceStore = signalStore(
       patchState(store, { user: undefined });
     },
 
-    signUp: ({ name, email, password, checkout, dialogId }: SignUpParams)=> {
+    signUp: ({ email, password, checkout, dialogId }: SignUpParams)=> {
       patchState(store, {
         user: {
           id: '1',
