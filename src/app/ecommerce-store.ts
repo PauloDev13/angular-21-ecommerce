@@ -69,7 +69,7 @@ export const EcommerceStore = signalStore(
             rating: 5,
             title: 'Muito bom',
             comment: 'Aparelho muito bom. Chegou em perfeito estado',
-            reviewCount: new Date('2026-02-12'),
+            reviewDate: new Date('2026-03-12'),
           }
         ]
 
@@ -93,7 +93,7 @@ export const EcommerceStore = signalStore(
             rating: 5,
             title: 'Muito bom',
             comment: 'Aparelho muito bom. Chegou em perfeito estado',
-            reviewCount: new Date('2026-02-13'),
+            reviewDate: new Date('2026-04-13'),
           }
         ]
       },
@@ -116,7 +116,7 @@ export const EcommerceStore = signalStore(
             rating: 5,
             title: 'Muito bom',
             comment: 'Aparelho muito bom. Chegou em perfeito estado',
-            reviewCount: new Date('2026-02-14'),
+            reviewDate: new Date('2026-05-14'),
           }
         ]
       },
@@ -139,7 +139,17 @@ export const EcommerceStore = signalStore(
             rating: 5,
             title: 'Muito bom',
             comment: 'Aparelho muito bom. Chegou em perfeito estado',
-            reviewCount: new Date('2026-02-15'),
+            reviewDate: new Date('2026-06-15'),
+          },
+          {
+            id: '2',
+            productId: '6',
+            userName: 'nandamorais',
+            userImageUrl: 'https://randomuser.me/api/portraits/women/74.jpg',
+            rating: 4,
+            title: 'Ótimo produto',
+            comment: 'Qualidade muito boa. Chegou em perfeito estado',
+            reviewDate: new Date('2026-12-15'),
           }
         ]
       },
@@ -162,7 +172,7 @@ export const EcommerceStore = signalStore(
             rating: 5,
             title: 'Muito bom',
             comment: 'Aparelho muito bom. Chegou em perfeito estado',
-            reviewCount: new Date('2026-02-16'),
+            reviewDate: new Date('2026-07-16'),
           }
         ]
       },
@@ -185,7 +195,7 @@ export const EcommerceStore = signalStore(
             rating: 5,
             title: 'Muito bom',
             comment: 'Aparelho muito bom. Chegou em perfeito estado',
-            reviewCount: new Date('2026-02-17'),
+            reviewDate: new Date('2026-08-17'),
           }
         ]
       },
@@ -208,7 +218,7 @@ export const EcommerceStore = signalStore(
             rating: 5,
             title: 'Muito bom',
             comment: 'Aparelho muito bom. Chegou em perfeito estado',
-            reviewCount: new Date('2026-02-18'),
+            reviewDate: new Date('2026-09-18'),
           }
         ]
       },
@@ -231,7 +241,7 @@ export const EcommerceStore = signalStore(
             rating: 5,
             title: 'Muito bom',
             comment: 'Aparelho muito bom. Chegou em perfeito estado',
-            reviewCount: new Date('2026-02-19'),
+            reviewDate: new Date('2026-10-19'),
           }
         ]
       }

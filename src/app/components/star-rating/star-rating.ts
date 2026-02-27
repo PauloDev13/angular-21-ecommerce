@@ -26,6 +26,7 @@ import {MatIcon} from '@angular/material/icon';
     </div>
   `,
   styles: ``,
+  standalone: true
 })
 export class StarRating {
   rating = input.required<number>()
